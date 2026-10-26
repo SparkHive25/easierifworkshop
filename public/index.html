@@ -1,0 +1,819 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Easier If Worksheet</title>
+<meta name="description" content="The Easier If Method worksheet from spark hive. Follow along on paper or online, then send your answers to yourself.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,400&family=Nunito:wght@300;400;600;700;800;900&family=Raleway+Dots&family=Shadows+Into+Light&display=swap">
+<style>
+:root{
+  --purple:#471C78; --purple-ink:#2F1150; --gold:#F6A900; --gold-text:#A86F00; --teal:#00CFC1;
+  --silver:#BFBFBF; --midnight:#1A1A1A; --white:#FFFFFF;
+  --lav:#F3EEF9; --lav-line:#E4D8F0; --lav-border:#C4A9E0; --gold-tint:#FFF6E0; --muted:#616167;
+  --sticky:#FFE56D; --line:#CFCFCF;
+  --radius:18px; --radius-sm:12px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth; scroll-padding-top:84px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0; background-color:var(--white);
+  background-image:radial-gradient(rgba(71,28,120,.13) 1.1px, transparent 1.3px);
+  background-size:24px 24px;
+  font-family:'Nunito',system-ui,sans-serif; color:var(--midnight); font-size:17px; line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--purple)} a:hover{color:var(--purple-ink)}
+.sr{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.wrap{max-width:1120px; margin:0 auto; padding:0 16px}
+button{font:inherit; cursor:pointer}
+:focus-visible{outline:3px solid var(--teal); outline-offset:2px}
+
+/* top bar */
+.topbar{position:sticky; top:0; z-index:20; background:var(--white); border-bottom:1.5px solid var(--lav-line)}
+.topbar .wrap{height:64px; display:flex; align-items:center; gap:16px}
+.logo{display:flex; align-items:center; text-decoration:none; flex:none}
+.logo img{height:36px; width:auto; display:block}
+.logo .wordmark{display:none; font-size:24px; letter-spacing:-.02em}
+.logo.noimg img{display:none} .logo.noimg .wordmark{display:inline}
+.wordmark b{font-weight:700; color:var(--purple)} .wordmark span{font-weight:300; color:var(--gold-text)}
+.status{margin-left:auto; display:flex; align-items:center; gap:14px; font-size:14px; color:var(--muted)}
+.status .count{font-weight:800; color:var(--purple); white-space:nowrap}
+.status .saved{white-space:nowrap}
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 20px; border-radius:999px; border:2px solid var(--purple); background:var(--purple); color:var(--white); font-weight:800; font-size:16px; text-decoration:none; white-space:nowrap}
+.btn:hover{background:var(--purple-ink); border-color:var(--purple-ink); color:var(--white)}
+.btn.ghost{background:transparent; color:var(--purple)}
+.btn.ghost:hover{background:var(--lav); color:var(--purple-ink)}
+.btn.small{min-height:38px; padding:0 16px; font-size:15px}
+.show-sm{display:none}
+@media screen and (max-width:560px){ .status .saved{display:none} .status{gap:10px} .status .count{font-size:13px} .hide-sm{display:none} .show-sm{display:inline} .logo img{height:32px} }
+
+/* hero */
+.hero{padding:40px 0 8px}
+.eyebrow{margin:0 0 6px; font-family:'Raleway Dots',sans-serif; font-size:16px; letter-spacing:.12em; color:var(--purple)}
+h1{margin:0; font-weight:900; font-size:clamp(36px,6vw,56px); line-height:1.05; letter-spacing:-.02em; color:var(--purple)}
+h1 .gold{color:var(--gold-text); white-space:nowrap}
+.tagline{margin:10px 0 0; font-family:'Lora',serif; font-style:italic; font-size:22px; color:var(--purple)}
+.intro{margin:24px 0 0; display:grid; grid-template-columns:1.4fr 1fr; gap:18px; align-items:stretch}
+@media screen and (max-width:820px){ .intro{grid-template-columns:1fr} }
+.card{background:var(--white); border:2.5px solid var(--purple); border-radius:var(--radius); padding:22px}
+.intro .card p{margin:0 0 10px} .intro .card p:last-child{margin:0}
+.ticks{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.ticks li{display:flex; gap:10px; align-items:flex-start}
+.ticks li::before{content:"✦"; color:var(--gold-text); font-weight:900; flex:none}
+.event-chip[hidden]{display:none}
+.event-chip{display:inline-flex; margin-top:14px; padding:6px 14px; border-radius:999px; background:var(--lav); color:var(--purple); font-weight:800; font-size:14px}
+.jump{margin:22px 0 0; display:flex; flex-wrap:wrap; gap:8px; align-items:center}
+.jump .label{font-weight:800; font-size:13px; letter-spacing:.12em; color:var(--purple); margin-right:4px}
+.chip{display:inline-flex; align-items:center; gap:6px; min-height:36px; padding:0 12px; border-radius:999px; border:1.5px solid var(--purple); background:var(--white); color:var(--purple); font-weight:800; font-size:14px; text-decoration:none}
+.chip:hover{background:var(--lav)}
+.chip .n{display:inline-flex; width:20px; height:20px; border-radius:50%; background:var(--gold); color:var(--midnight); font-size:11px; align-items:center; justify-content:center}
+.chip.done{background:var(--lav)}
+.chip.done::after{content:"✓"; font-weight:900; color:var(--purple)}
+
+/* side headers */
+.side{margin:44px 0 16px; display:flex; align-items:baseline; gap:14px; flex-wrap:wrap}
+.side .tag{font-weight:800; font-size:13px; letter-spacing:.14em; color:var(--white); background:var(--purple); padding:4px 12px; border-radius:999px}
+.side h2{margin:0; font-weight:900; font-size:clamp(24px,3.4vw,34px); color:var(--purple); letter-spacing:-.01em}
+.side h2 .gold{color:var(--gold-text)}
+.side .quote{font-family:'Lora',serif; font-style:italic; color:var(--purple); font-size:18px}
+
+/* panels */
+.grid2{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px}
+@media screen and (max-width:820px){ .grid2{grid-template-columns:1fr} }
+.grid-sys{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,2.1fr); gap:18px; align-items:start}
+@media screen and (max-width:900px){ .grid-sys{grid-template-columns:1fr} }
+.grid2 > .panel, .grid-sys > .panel{margin-bottom:0}
+.grid2 + .grid2, .grid-sys + .grid2{margin-top:18px}
+.panel .grid2{margin-top:0}
+.panel{background:var(--white); border:2.5px solid var(--purple); border-radius:var(--radius); padding:24px; margin-bottom:18px; display:flex; flex-direction:column; gap:14px; scroll-margin-top:84px}
+@media screen and (max-width:560px){ .panel{padding:18px 16px} }
+.panel-head{display:flex; align-items:center; gap:12px; flex-wrap:wrap}
+.badge{width:36px; height:36px; flex:none; border-radius:50%; background:var(--gold); color:var(--midnight); display:flex; align-items:center; justify-content:center; font-weight:900; font-size:16px}
+.panel h3{margin:0; font-weight:800; font-size:28px; line-height:1.15; color:var(--purple)}
+.note{font-family:'Shadows Into Light',cursive; font-size:23px; line-height:1.15; color:var(--purple); transform:rotate(-2deg); display:inline-block}
+.panel-head .note{margin-left:auto}
+@media screen and (max-width:560px){ .panel-head .note{margin-left:0; width:100%} }
+.lead{margin:0; font-size:17px}
+.lead strong{color:var(--purple)}
+.hint{margin:0; font-size:15px; color:var(--muted)}
+.label{display:block; font-weight:800; font-size:15px; color:var(--purple); margin:0 0 2px}
+.field{display:flex; flex-direction:column}
+.inline-fields{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px 20px}
+@media screen and (max-width:560px){ .inline-fields{grid-template-columns:1fr} }
+
+/* write-in inputs */
+.line, textarea.lined{
+  width:100%; border:0; border-radius:0; background-color:transparent; color:var(--midnight);
+  font-family:'Nunito',sans-serif; font-size:17px; padding:0 2px;
+}
+.line{height:36px; border-bottom:1.5px solid var(--silver)}
+.line:focus, textarea.lined:focus{outline:none; background-color:var(--lav)}
+.line:focus-visible, textarea.lined:focus-visible{outline:none; box-shadow:0 0 0 3px var(--teal)}
+textarea.lined{
+  display:block; resize:none; overflow:hidden; line-height:32px; min-height:64px;
+  background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 30.5px, var(--silver) 30.5px, var(--silver) 32px);
+  background-attachment:local;
+}
+textarea.lined.r1{min-height:32px} textarea.lined.r3{min-height:96px} textarea.lined.r4{min-height:128px} textarea.lined.r6{min-height:192px} textarea.lined.r8{min-height:256px}
+::placeholder{color:#8B8B92; opacity:1}
+.box{border:1.5px solid var(--lav-border); border-radius:var(--radius-sm); padding:10px 14px 12px}
+.tint{background:var(--gold-tint)}
+.tint textarea.lined{background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 30.5px, #A9A9A9 30.5px, #A9A9A9 32px)}
+
+/* Map it table */
+.steps{border:1.5px solid var(--purple); border-radius:var(--radius-sm); overflow:hidden}
+.steps .row{display:grid; grid-template-columns:44px minmax(0,1.35fr) minmax(0,.75fr) minmax(0,1.15fr); border-top:1px solid var(--lav-line)}
+.steps .row.head{border-top:0; background:var(--lav)}
+.steps .row.head > div{padding:8px 10px; font-weight:800; font-size:14px; color:var(--purple); display:flex; flex-direction:column; justify-content:center}
+.steps .row.head small{font-weight:400; color:var(--muted); font-size:12px}
+.steps .cell{padding:4px 10px 8px; border-left:1px solid var(--lav-line); min-width:0}
+.steps .cell:first-child{border-left:0; display:flex; justify-content:center; padding-top:10px}
+.steps .cell.peeve{background:var(--gold-tint)}
+.steps .cell.peeve textarea.lined{background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 30.5px, #A9A9A9 30.5px, #A9A9A9 32px)}
+.num{width:26px; height:26px; border-radius:50%; background:var(--lav); border:1.5px solid var(--purple); color:var(--purple); font-weight:800; font-size:13px; display:flex; align-items:center; justify-content:center}
+.cell-label{display:none}
+.remap .row{grid-template-columns:44px minmax(0,1.4fr) minmax(0,.8fr) minmax(0,1.5fr)}
+.lanes{display:flex; flex-wrap:wrap; gap:6px; padding-top:10px}
+@media screen and (max-width:760px){
+  .steps .row, .remap .row{grid-template-columns:1fr}
+  .steps .row.head{display:none}
+  .steps .row{padding:12px 14px; gap:8px}
+  .steps .cell{border-left:0; padding:0}
+  .steps .cell:first-child{justify-content:flex-start; padding:0}
+  .steps .cell.peeve{padding:8px 10px; border-radius:10px}
+  .cell-label{display:block; font-weight:800; font-size:14px; color:var(--purple)}
+  .cell-label small{font-weight:400; color:var(--muted)}
+  .lanes{padding-top:4px}
+  .steps .cell.who textarea.lined{min-height:32px}
+}
+.add-row{align-self:flex-start}
+
+/* pills + segmented */
+.pill-input{position:relative; display:inline-flex}
+.pill-input input{position:absolute; opacity:0; width:1px; height:1px}
+.pill-input span{display:inline-flex; align-items:center; justify-content:center; min-height:34px; min-width:40px; padding:0 12px; border:1.5px solid var(--purple); border-radius:999px; font-weight:800; font-size:14px; color:var(--purple); background:var(--white); user-select:none}
+.pill-input input:checked + span{background:var(--purple); color:var(--white)}
+.pill-input input:focus-visible + span{box-shadow:0 0 0 3px var(--teal)}
+.pill-input:hover span{background:var(--lav)}
+.pill-input input:checked:hover + span, .pill-input:hover input:checked + span{background:var(--purple-ink)}
+.legend{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px}
+@media screen and (max-width:640px){ .legend{grid-template-columns:1fr} }
+.legend .pill{display:inline-flex; padding:3px 12px; border:1.5px solid var(--purple); border-radius:999px; font-weight:800; font-size:13px; color:var(--purple)}
+.legend p{margin:6px 0 0; font-size:15px}
+.banner{background:var(--lav); border-radius:10px; padding:10px 14px; font-weight:800; color:var(--purple)}
+
+/* Connect it */
+.connect{display:flex; border:1.5px solid var(--purple); border-radius:var(--radius-sm); overflow:hidden}
+.c-labels{flex:none; width:190px; background:var(--white)}
+.c-col{flex:1 1 0; min-width:0; border-left:1px solid var(--lav-line)}
+.c-cell{height:56px; padding:6px 10px; display:flex; flex-direction:column; justify-content:center; border-top:1px solid var(--lav-line)}
+.c-cell:first-child{border-top:0; background:var(--lav); height:60px}
+.c-labels .c-cell span{font-weight:700; font-size:15px; line-height:1.15}
+.c-labels .c-cell small{font-size:12px; color:var(--muted)}
+.c-labels .c-cell:first-child span{font-weight:800; color:var(--purple)}
+.seg{display:flex; gap:4px; justify-content:center}
+.seg .pill-input span{min-width:34px; min-height:32px; padding:0 8px; font-size:13px}
+.c-name{border-bottom-color:#A9A9A9; background:transparent}
+.c-row-label{display:none}
+@media screen and (max-width:860px){
+  .connect{flex-direction:column; border:0; border-radius:0; gap:12px; overflow:visible}
+  .c-labels{display:none}
+  .c-col{flex:none; border:1.5px solid var(--purple); border-radius:var(--radius-sm); overflow:hidden}
+  .c-cell{height:auto; min-height:52px; flex-direction:row; align-items:center; justify-content:space-between; gap:10px; padding:8px 12px}
+  .c-cell:first-child{height:auto; display:block}
+  .c-row-label{display:block; flex:1 1 auto; min-width:0; font-weight:700; font-size:15px; line-height:1.15}
+  .c-row-label small{display:block; font-weight:400; font-size:12px; color:var(--muted)}
+  .seg .pill-input span{min-width:44px; min-height:40px}
+}
+
+/* link cards */
+.linkcard{display:flex; gap:14px; align-items:center; background:var(--lav); border-radius:var(--radius-sm); padding:14px 16px; text-decoration:none; color:var(--midnight)}
+.linkcard:hover{background:#EAE1F5}
+.linkcard .arrow{flex:none; width:40px; height:40px; border-radius:50%; background:var(--white); border:2px solid var(--purple); color:var(--purple); display:flex; align-items:center; justify-content:center; font-weight:900}
+.linkcard strong{display:block; color:var(--purple); font-size:16px}
+.linkcard span{font-size:15px}
+.linkcard .url{display:block; font-size:13px; color:var(--muted)}
+
+/* checkpoint */
+.checkpoint{position:relative; margin-top:10px; background:var(--lav); border:1.5px dashed var(--purple); border-radius:var(--radius-sm); padding:14px 14px 12px}
+.checkpoint .k{margin:0; font-weight:800; font-size:12px; letter-spacing:.14em; color:var(--purple)}
+.checkpoint .q{margin:2px 0 4px; font-weight:800; color:var(--purple)}
+.checkpoint textarea.lined{background-image:repeating-linear-gradient(to bottom, transparent 0, transparent 30.5px, #A9A9A9 30.5px, #A9A9A9 32px)}
+.sticky{position:absolute; top:-18px; right:-6px; background:var(--sticky); border-radius:14px 18px 12px 20px / 16px 14px 20px 12px; padding:6px 12px; transform:rotate(-3deg); box-shadow:0 3px 8px rgba(26,26,26,.18); font-family:'Shadows Into Light',cursive; font-size:19px; color:var(--midnight); white-space:nowrap}
+.checks{display:flex; flex-direction:column; gap:8px}
+.check{display:flex; align-items:center; gap:10px; font-size:16px; cursor:pointer}
+.check input{width:20px; height:20px; accent-color:var(--purple)}
+.foot-quote{margin:4px 0 0; font-family:'Lora',serif; font-style:italic; color:var(--purple); font-size:17px}
+
+/* send */
+.send{background:var(--purple); color:var(--white); border-radius:var(--radius); padding:28px; margin:44px 0 18px; scroll-margin-top:84px}
+@media screen and (max-width:560px){ .send{padding:22px 16px} }
+.send h2{margin:0; font-weight:900; font-size:clamp(26px,4vw,36px); color:var(--white)}
+.send h2 .gold{color:var(--gold)}
+.send .sub{margin:6px 0 20px; font-size:17px; max-width:720px}
+.send .label{color:var(--white)}
+.send .line{color:var(--white); border-bottom-color:rgba(255,255,255,.6)}
+.send .line::placeholder{color:rgba(255,255,255,.5); font-style:italic}
+.send .line:focus{background-color:rgba(255,255,255,.12)}
+.send .req{color:var(--gold); font-weight:900}
+.send .check{color:var(--white)}
+.send .check input{accent-color:var(--gold)}
+.send .fine{font-size:14px; opacity:.92; margin:14px 0 0; max-width:760px}
+.actions{display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; align-items:center}
+.btn.gold{background:var(--gold); border-color:var(--gold); color:var(--midnight)}
+.btn.gold:hover{background:#FFC233; border-color:#FFC233; color:var(--midnight)}
+.btn.on-purple{background:transparent; border-color:var(--white); color:var(--white)}
+.btn.on-purple:hover{background:rgba(255,255,255,.12); color:var(--white)}
+.btn[disabled]{opacity:.6; cursor:default}
+.msg{margin-top:16px; padding:12px 16px; border-radius:var(--radius-sm); font-weight:700; display:none}
+.msg.show{display:block}
+.msg.err{background:var(--white); color:var(--purple); border:2px solid var(--gold)}
+.msg.ok{background:var(--white); color:var(--purple)}
+.linkish{background:none; border:0; padding:0; color:var(--white); text-decoration:underline; font-weight:700; font-size:15px}
+.clear-confirm{display:none; align-items:center; gap:10px; flex-wrap:wrap; font-weight:700}
+.clear-confirm.show{display:flex}
+.done-state{display:none}
+.done-state.show{display:block}
+.done-state h2{margin-bottom:8px}
+
+footer{padding:24px 0 48px; display:flex; flex-direction:column; gap:8px}
+footer .q{font-family:'Lora',serif; font-style:italic; font-size:20px; color:var(--purple); margin:0}
+footer p{margin:0; font-size:13px; color:var(--muted)}
+footer strong{color:var(--purple)}
+.hp{position:absolute; left:-9999px}
+
+/* print */
+@media print{
+  @page{size:letter landscape; margin:10mm}
+  html{zoom:.72}
+  body{background:none}
+  .wrap{max-width:none; padding:0}
+  .topbar, .jump, .intro .card:last-child, .add-row, .send .actions, .send .fine, .msg, .no-print{display:none!important}
+  .panel{break-inside:auto} .panel-head, .steps .row, .c-cell, .box, .checkpoint, .linkcard, .legend, .send{break-inside:avoid}
+  .side{margin-top:20px; break-after:avoid}
+  .panel{border-width:1.5pt}
+  .send{background:none; color:var(--midnight); border:1.5pt solid var(--purple); padding:14px}
+  .send h2, .send .label{color:var(--purple)}
+  .send .line{color:var(--midnight); border-bottom-color:var(--silver)}
+  .send .check{color:var(--midnight)}
+  *{-webkit-print-color-adjust:exact; print-color-adjust:exact}
+  .linkcard .url{color:var(--midnight)}
+  .hero{padding-top:0}
+  textarea.lined{overflow:visible}
+}
+</style>
+</head>
+<body>
+
+<!-- Netlify Forms registration (the page submits this form with JavaScript). -->
+<form name="easier-if-worksheet" data-netlify="true" netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name"><input type="email" name="email"><input type="text" name="title">
+  <input type="text" name="organization"><input type="text" name="event"><input type="text" name="newsletter">
+  <input type="hidden" name="subject">
+  <textarea name="ei_systems"></textarea><textarea name="ei_map"></textarea><textarea name="ei_say"></textarea>
+  <textarea name="ei_dig"></textarea><textarea name="ei_flow"></textarea><textarea name="ei_connect"></textarea>
+  <textarea name="ei_remap"></textarea><textarea name="ei_pick"></textarea><textarea name="ei_json"></textarea>
+  <input type="text" name="bot-field">
+</form>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="logo" href="https://sparkhive.com" aria-label="spark hive home">
+      <img src="https://res.cloudinary.com/sparkhive/image/upload/f_auto,h_96/Letterhead-_Sparkhive_-_Color_Brain_and_Spark-_No_Tag_knf0v7" alt="spark hive" height="36" onerror="this.parentNode.classList.add('noimg')">
+      <span class="wordmark" aria-hidden="true"><b>spark</b> <span>hive</span></span>
+    </a>
+    <div class="status">
+      <span class="count" id="count">0 of 8 started</span>
+      <span class="saved" id="saved" aria-live="polite">Saves on this device as you go</span>
+      <a class="btn small" href="#send"><span class="hide-sm">Send it to me</span><span class="show-sm">Send</span></a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section class="hero">
+  <p class="eyebrow">THE EASIER IF METHOD</p>
+  <h1>It would be <span class="gold">easier if…</span></h1>
+  <p class="tagline">Participation over perfection.</p>
+  <div id="eventChip" class="event-chip" hidden></div>
+
+  <div class="intro">
+    <div class="card">
+      <p><strong style="color:var(--purple)">Following along on paper?</strong> Every box on this page matches your worksheet. Same names, same numbers, same order. Type here, write there, or both.</p>
+      <p>When you’re done, send it to yourself. You get your answers by email, and you can print or save a PDF anytime.</p>
+    </div>
+    <div class="card">
+      <ul class="ticks">
+        <li>Your answers save on this device as you type.</li>
+        <li>Messy is fine. Nobody grades this.</li>
+        <li>Keep student names and personal details out of it.</li>
+      </ul>
+    </div>
+  </div>
+
+  <nav class="jump" aria-label="Jump to a section">
+    <span class="label">JUMP TO</span>
+    <a class="chip" href="#systems" data-sec="systems">Your systems</a>
+    <a class="chip" href="#map" data-sec="map"><span class="n">1</span>Map it</a>
+    <a class="chip" href="#say" data-sec="say"><span class="n">2</span>Say it</a>
+    <a class="chip" href="#dig" data-sec="dig"><span class="n">3</span>Dig it</a>
+    <a class="chip" href="#flow" data-sec="flow"><span class="n">4</span>FLOW</a>
+    <a class="chip" href="#connect" data-sec="connect"><span class="n">5</span>Connect it</a>
+    <a class="chip" href="#remap" data-sec="remap"><span class="n">6</span>Map it again</a>
+    <a class="chip" href="#pick" data-sec="pick"><span class="n">✦</span>Pick one</a>
+  </nav>
+</section>
+
+<!-- SIDE 1 -->
+<div class="side">
+  <span class="tag">SIDE 1</span>
+  <h2>It would be <span class="gold">easier if…</span></h2>
+</div>
+
+<div class="grid-sys">
+  <section class="panel" id="systems" aria-labelledby="h-systems">
+    <div class="panel-head"><h3 id="h-systems">Your systems</h3></div>
+    <p class="lead">List the systems your program runs on.</p>
+    <p class="hint">LMS, SIS, family app, forms, spreadsheets…</p>
+    <div class="box">
+      <label class="sr" for="f-systems">Your systems, one per line</label>
+      <textarea id="f-systems" class="lined r8" data-k="systems" placeholder="One per line"></textarea>
+    </div>
+    <p class="note" style="align-self:center">running one “just in case”? list it too</p>
+  </section>
+
+  <section class="panel" id="map" aria-labelledby="h-map">
+    <div class="panel-head"><div class="badge">1</div><h3 id="h-map">Map it</h3><span class="note">messy maps are good maps</span></div>
+    <p class="lead">Pick one system. Map how its workflow runs today, one step per row. Then <strong>add the pet peeves, hiccups and issues</strong> where they show up.</p>
+    <div class="field"><label class="label" for="f-map-system">The system</label><input id="f-map-system" class="line" data-k="map.system" autocomplete="off"></div>
+    <div class="inline-fields">
+      <div class="field"><label class="label" for="f-map-start">It starts when</label><input id="f-map-start" class="line" data-k="map.starts" autocomplete="off"></div>
+      <div class="field"><label class="label" for="f-map-end">It ends when</label><input id="f-map-end" class="line" data-k="map.ends" autocomplete="off"></div>
+    </div>
+    <div class="steps" id="mapRows">
+      <div class="row head" aria-hidden="true">
+        <div style="align-items:center">#</div>
+        <div>What happens</div>
+        <div>Who<small>role, not name</small></div>
+        <div>Pet peeves, hiccups, issues</div>
+      </div>
+    </div>
+    <button type="button" class="btn ghost small add-row" id="addMap">+ Add a step</button>
+  </section>
+</div>
+
+<div class="grid2">
+  <section class="panel" id="say" aria-labelledby="h-say">
+    <div class="panel-head"><div class="badge">2</div><h3 id="h-say">Say it</h3></div>
+    <p class="lead">Choose one hiccup from your map. Finish the sentence 3 times. Don’t polish it.</p>
+    <div class="field">
+      <label class="label" for="f-hiccup">The hiccup</label>
+      <textarea id="f-hiccup" class="lined" data-k="say.hiccup"></textarea>
+    </div>
+    <div class="box"><label class="label" for="f-say-a">a <span style="font-family:'Lora',serif;font-style:italic;font-weight:400">It would be easier if…</span></label><textarea id="f-say-a" class="lined r3" data-k="say.a"></textarea></div>
+    <div class="box"><label class="label" for="f-say-b">b <span style="font-family:'Lora',serif;font-style:italic;font-weight:400">It would be easier if…</span></label><textarea id="f-say-b" class="lined r3" data-k="say.b"></textarea></div>
+    <div class="box"><label class="label" for="f-say-c">c <span style="font-family:'Lora',serif;font-style:italic;font-weight:400">It would be easier if…</span></label><textarea id="f-say-c" class="lined r3" data-k="say.c"></textarea></div>
+    <p class="note" style="align-self:center">the complaint is the data</p>
+  </section>
+
+  <section class="panel" id="dig" aria-labelledby="h-dig">
+    <div class="panel-head"><div class="badge">3</div><h3 id="h-dig">Dig it</h3></div>
+    <p class="lead">Pick one statement. <strong>Ask questions</strong> until you understand the problem behind it.</p>
+    <div class="box">
+      <label class="label" for="f-dig-q">Your questions, and what you learn</label>
+      <textarea id="f-dig-q" class="lined r6" data-k="dig.questions"></textarea>
+    </div>
+    <a class="linkcard" href="https://sparkhive.com/blog/phoenix-checklist" target="_blank" rel="noopener">
+      <span class="arrow" aria-hidden="true">→</span>
+      <span><strong>Stuck finding the problem?</strong><span>Dig into the Phoenix Checklist.</span><span class="url">sparkhive.com/blog/phoenix-checklist</span></span>
+    </a>
+    <div class="checkpoint">
+      <span class="sticky" aria-hidden="true">say it out loud →</span>
+      <p class="k">CHECKPOINT</p>
+      <label class="q" for="f-dig-p">The problem behind it, in one sentence.</label>
+      <textarea id="f-dig-p" class="lined r3" data-k="dig.problem"></textarea>
+    </div>
+  </section>
+</div>
+
+<!-- SIDE 2 -->
+<div class="side">
+  <span class="tag">SIDE 2</span>
+  <h2>Where <span class="gold">AI belongs</span>, and where it doesn’t.</h2>
+  <span class="quote">From spark to structure.</span>
+</div>
+
+<section class="panel" id="flow" aria-labelledby="h-flow">
+  <div class="panel-head"><div class="badge">4</div><h3 id="h-flow">FLOW</h3></div>
+  <p class="lead" style="font-family:'Lora',serif; font-style:italic; color:var(--purple); font-size:20px">Can AI help us clear up this issue?</p>
+  <div class="grid2" style="align-items:start">
+    <a class="linkcard" href="https://sparkhive.com/blog/flow-framework" target="_blank" rel="noopener">
+      <span class="arrow" aria-hidden="true">→</span>
+      <span><strong>Watch the FLOW video and instructions.</strong><span>Frame · Load · Organize · Work the iteration</span><span class="url">sparkhive.com/blog/flow-framework</span></span>
+    </a>
+    <div class="field">
+      <label class="label" for="f-flow">Our idea</label>
+      <textarea id="f-flow" class="lined" data-k="flow.idea"></textarea>
+    </div>
+  </div>
+</section>
+
+<section class="panel" id="connect" aria-labelledby="h-connect">
+  <div class="panel-head"><div class="badge">5</div><h3 id="h-connect">Connect it</h3><span class="note">not sure is an answer</span></div>
+  <p class="lead">Write in up to 4 systems your workflow touches. Mark <strong>Y</strong>, <strong>N</strong> or <strong>?</strong> in every box.</p>
+  <div class="connect" id="connectGrid">
+    <div class="c-labels" aria-hidden="true">
+      <div class="c-cell"><span>System</span></div>
+      <div class="c-cell"><span>Connects to AI?</span><small>MCP or connector</small></div>
+      <div class="c-cell"><span>API?</span></div>
+      <div class="c-cell"><span>Automations?</span><small>built in, Zapier, Make</small></div>
+      <div class="c-cell"><span>Docs we can find?</span></div>
+      <div class="c-cell"><span>Student data inside?</span></div>
+      <div class="c-cell"><span>Level today</span><small>guess · see · do</small></div>
+    </div>
+  </div>
+  <a class="linkcard" href="https://sparkhive.com/blog/mcp-levels" target="_blank" rel="noopener">
+    <span class="arrow" aria-hidden="true">→</span>
+    <span><strong>Guess, see or do?</strong><span>Watch the MCP video. Not sure? Check the system’s help docs for “MCP.”</span><span class="url">sparkhive.com/blog/mcp-levels</span></span>
+  </a>
+</section>
+
+<section class="panel" id="remap" aria-labelledby="h-remap">
+  <div class="panel-head"><div class="badge">6</div><h3 id="h-remap">Map it again</h3><span class="note">the fixed version, not the perfect one</span></div>
+  <div class="banner">Clean up the issue first. Then let AI automate.</div>
+  <p class="lead">Map the workflow with the issue fixed, one step per row. Then <strong>sort every step</strong>: what AI owns, what AI assists with, and what a human leads. Name the system each AI step would need.</p>
+  <div class="legend">
+    <div><span class="pill">AI owns</span><p>Repetitive, rules-based, low risk. A person spot-checks.</p></div>
+    <div><span class="pill">AI assists</span><p>AI drafts. A person decides.</p></div>
+    <div><span class="pill">Human leads</span><p>Judgment, relationships, and anything about a specific student.</p></div>
+  </div>
+  <div class="steps remap" id="remapRows">
+    <div class="row head" aria-hidden="true">
+      <div style="align-items:center">#</div>
+      <div>The fixed step</div>
+      <div>Which system?</div>
+      <div>Who owns it</div>
+    </div>
+  </div>
+  <button type="button" class="btn ghost small add-row" id="addRemap">+ Add a step</button>
+  <p class="foot-quote">A long Human leads list isn’t a failure. It shows where your people matter most.</p>
+</section>
+
+<section class="panel" id="pick" aria-labelledby="h-pick">
+  <div class="panel-head"><div class="badge">✦</div><h3 id="h-pick">Pick one</h3></div>
+  <p class="lead">One safe experiment. Start with the safest step on your fixed map.</p>
+  <div class="grid2" style="align-items:start; gap:14px 28px">
+    <div style="display:flex; flex-direction:column; gap:14px">
+      <div class="field"><label class="label" for="f-pick-step">The step</label><textarea id="f-pick-step" class="lined" data-k="pick.step"></textarea></div>
+      <div class="checks">
+        <label class="check"><input type="checkbox" data-k="pick.repetitive"> Repetitive?</label>
+        <label class="check"><input type="checkbox" data-k="pick.lowrisk"> Low risk?</label>
+        <label class="check"><input type="checkbox" data-k="pick.annoyance"> High annoyance?</label>
+      </div>
+      <div class="field"><label class="label" for="f-pick-exp">Our experiment</label><textarea id="f-pick-exp" class="lined r3" data-k="pick.experiment"></textarea></div>
+    </div>
+    <div style="display:flex; flex-direction:column; gap:14px">
+      <div class="field"><label class="label" for="f-pick-wrong">What could go wrong?</label><textarea id="f-pick-wrong" class="lined" data-k="pick.wrong"></textarea></div>
+      <div class="inline-fields">
+        <div class="field"><label class="label" for="f-pick-owner">Owner</label><input id="f-pick-owner" class="line" data-k="pick.owner" autocomplete="off"></div>
+        <div class="field"><label class="label" for="f-pick-check">Check-in</label><input id="f-pick-check" class="line" data-k="pick.checkin" autocomplete="off"></div>
+      </div>
+      <div class="field"><label class="label" for="f-pick-success">Success looks like</label><textarea id="f-pick-success" class="lined r3" data-k="pick.success"></textarea></div>
+    </div>
+  </div>
+  <p class="foot-quote">If AI goes wrong here, nobody gets fired and no student data leaves the building.</p>
+</section>
+
+<!-- SEND -->
+<section class="send" id="send" aria-labelledby="h-send">
+  <div id="sendForm">
+    <h2 id="h-send">Send it to <span class="gold">yourself.</span></h2>
+    <p class="sub">I’ll email you a copy of everything you wrote, so the thinking doesn’t stay in the room. You can also print it or save a PDF.</p>
+    <div class="inline-fields">
+      <div class="field"><label class="label" for="c-name">Your name <span class="req" aria-hidden="true">*</span></label><input id="c-name" class="line" data-k="contact.name" autocomplete="name" required></div>
+      <div class="field"><label class="label" for="c-email">Email <span class="req" aria-hidden="true">*</span></label><input id="c-email" class="line" type="email" data-k="contact.email" autocomplete="email" required></div>
+      <div class="field"><label class="label" for="c-title">Your role</label><input id="c-title" class="line" data-k="contact.title" autocomplete="organization-title"></div>
+      <div class="field"><label class="label" for="c-org">School, district or organization</label><input id="c-org" class="line" data-k="contact.org" autocomplete="organization"></div>
+      <div class="field"><label class="label" for="c-event">Workshop</label><input id="c-event" class="line" data-k="contact.event" autocomplete="off" placeholder="Where did you do this?"></div>
+    </div>
+    <div style="margin-top:18px">
+      <label class="check"><input type="checkbox" data-k="contact.newsletter"> Also send me the spark hive monthly newsletter. Optional.</label>
+    </div>
+    <input class="hp" type="text" id="bot-field" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div class="actions">
+      <button type="button" class="btn gold" id="sendBtn">Send my worksheet</button>
+      <button type="button" class="btn on-purple" id="printBtn">Print or save as PDF</button>
+      <button type="button" class="btn on-purple" id="dlBtn">Download as text</button>
+    </div>
+    <div class="msg err" id="errMsg" role="alert"></div>
+    <p class="fine">By sending, you agree that spark hive keeps a copy of this worksheet and your contact details so Tatiana can follow up on your workshop. Newsletter only if you tick the box. No student data, please.</p>
+    <div class="actions no-print" style="margin-top:14px">
+      <button type="button" class="linkish" id="clearBtn">Clear this device</button>
+      <span class="clear-confirm" id="clearConfirm">Clear every answer on this device? This can’t be undone.
+        <button type="button" class="btn small gold" id="clearYes">Yes, clear it</button>
+        <button type="button" class="btn small on-purple" id="clearNo">Keep it</button>
+      </span>
+    </div>
+  </div>
+  <div class="done-state" id="doneState" tabindex="-1">
+    <h2>Sent. <span class="gold">✦</span></h2>
+    <p class="sub" id="doneText">Your worksheet is on its way.</p>
+    <div class="actions">
+      <button type="button" class="btn gold" id="keepBtn">Keep editing</button>
+      <button type="button" class="btn on-purple" id="printBtn2">Print or save as PDF</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p class="q">Don’t automate chaos. Clarify it.</p>
+  <p>Phoenix Checklist: developed by the U.S. CIA, popularized by Michael Michalko in <em>Thinkertoys</em> (1991). MCP (Model Context Protocol): an open standard that lets AI tools connect to the apps you already use.</p>
+  <p><strong>spark hive</strong> · Tatiana Dominguez · Analog soul in a digital world.</p>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var STORE = "sparkhive.easierif.v1";
+  var MAP_MIN = 6, MAP_MAX = 12, REMAP_MIN = 5, REMAP_MAX = 12;
+  var state = {};
+  var store = null;
+  try { store = window.localStorage; store.getItem(STORE); } catch(e){ store = null; }
+
+  function load(){ try { var raw = store && store.getItem(STORE); return raw ? JSON.parse(raw) : {}; } catch(e){ return {}; } }
+  function persist(){
+    try { if (store) { store.setItem(STORE, JSON.stringify(state)); setSaved("Saved on this device"); } else { setSaved("Not saving: private window"); } }
+    catch(e){ setSaved("Couldn’t save on this device"); }
+  }
+  var savedEl = document.getElementById("saved");
+  function setSaved(t){ savedEl.textContent = t; }
+
+  /* ---------- build dynamic rows ---------- */
+  function mapRow(i){
+    var n = i + 1, k = "map.rows." + i;
+    return '<div class="row" data-row="'+i+'">' +
+      '<div class="cell"><span class="num">'+n+'</span></div>' +
+      '<div class="cell"><span class="cell-label">What happens</span><label class="sr" for="m'+i+'w">Step '+n+', what happens</label><textarea id="m'+i+'w" class="lined" data-k="'+k+'.what"></textarea></div>' +
+      '<div class="cell who"><span class="cell-label">Who <small>role, not name</small></span><label class="sr" for="m'+i+'o">Step '+n+', who</label><textarea id="m'+i+'o" class="lined" data-k="'+k+'.who"></textarea></div>' +
+      '<div class="cell peeve"><span class="cell-label">Pet peeves, hiccups, issues</span><label class="sr" for="m'+i+'p">Step '+n+', pet peeves, hiccups, issues</label><textarea id="m'+i+'p" class="lined" data-k="'+k+'.peeves"></textarea></div>' +
+    '</div>';
+  }
+  function remapRow(i){
+    var n = i + 1, k = "remap.rows." + i, name = "remap-lane-" + i;
+    var lanes = ["AI owns","AI assists","Human leads"].map(function(l){
+      return '<label class="pill-input"><input type="radio" name="'+name+'" value="'+l+'" data-k="'+k+'.lane"><span>'+l+'</span></label>';
+    }).join("");
+    return '<div class="row" data-row="'+i+'">' +
+      '<div class="cell"><span class="num">'+n+'</span></div>' +
+      '<div class="cell"><span class="cell-label">The fixed step</span><label class="sr" for="r'+i+'s">Fixed step '+n+'</label><textarea id="r'+i+'s" class="lined" data-k="'+k+'.step"></textarea></div>' +
+      '<div class="cell"><span class="cell-label">Which system?</span><label class="sr" for="r'+i+'y">Fixed step '+n+', which system</label><textarea id="r'+i+'y" class="lined" data-k="'+k+'.system"></textarea></div>' +
+      '<div class="cell"><span class="cell-label">Who owns it</span><fieldset style="border:0;margin:0;padding:0;min-width:0"><legend class="sr">Fixed step '+n+', who owns it</legend><div class="lanes">'+lanes+'</div></fieldset></div>' +
+    '</div>';
+  }
+  var CONNECT_ROWS = [
+    {k:"ai", label:"Connects to AI?", sub:"MCP or connector", opts:["Y","N","?"]},
+    {k:"api", label:"API?", opts:["Y","N","?"]},
+    {k:"auto", label:"Automations?", sub:"built in, Zapier, Make", opts:["Y","N","?"]},
+    {k:"docs", label:"Docs we can find?", opts:["Y","N","?"]},
+    {k:"student", label:"Student data inside?", opts:["Y","N","?"]},
+    {k:"level", label:"Level today", sub:"guess · see · do", opts:["G","S","D"], titles:["Guess","See","Do"]}
+  ];
+  function connectCol(i){
+    var n = i + 1, base = "connect." + i;
+    var html = '<div class="c-col">';
+    html += '<div class="c-cell"><label class="sr" for="cs'+i+'">System '+n+' name</label><input id="cs'+i+'" class="line c-name" data-k="'+base+'.name" placeholder="System '+n+'" autocomplete="off"></div>';
+    CONNECT_ROWS.forEach(function(r){
+      var name = "c-"+i+"-"+r.k;
+      var seg = r.opts.map(function(o, j){
+        var t = r.titles ? r.titles[j] : (o==="Y"?"Yes":o==="N"?"No":"Not sure");
+        return '<label class="pill-input" title="'+t+'"><input type="radio" name="'+name+'" value="'+o+'" data-k="'+base+'.'+r.k+'" aria-label="'+t+'"><span>'+o+'</span></label>';
+      }).join("");
+      html += '<div class="c-cell"><span class="c-row-label">'+r.label+(r.sub?'<small>'+r.sub+'</small>':'')+'</span>' +
+        '<fieldset style="border:0;margin:0;padding:0;min-width:0"><legend class="sr">System '+n+', '+r.label+'</legend><div class="seg">'+seg+'</div></fieldset></div>';
+    });
+    return html + '</div>';
+  }
+
+  var mapWrap = document.getElementById("mapRows"), remapWrap = document.getElementById("remapRows"), connectWrap = document.getElementById("connectGrid");
+  function renderRows(){
+    var mc = Math.min(MAP_MAX, Math.max(MAP_MIN, state._mapCount || MAP_MIN));
+    var rc = Math.min(REMAP_MAX, Math.max(REMAP_MIN, state._remapCount || REMAP_MIN));
+    state._mapCount = mc; state._remapCount = rc;
+    var h = ""; for (var i=0;i<mc;i++) h += mapRow(i); mapWrap.insertAdjacentHTML("beforeend", h);
+    h = ""; for (i=0;i<rc;i++) h += remapRow(i); remapWrap.insertAdjacentHTML("beforeend", h);
+    h = ""; for (i=0;i<4;i++) h += connectCol(i); connectWrap.insertAdjacentHTML("beforeend", h);
+    toggleAdd();
+  }
+  function toggleAdd(){
+    document.getElementById("addMap").hidden = state._mapCount >= MAP_MAX;
+    document.getElementById("addRemap").hidden = state._remapCount >= REMAP_MAX;
+  }
+
+  /* ---------- read / write fields ---------- */
+  function fields(){ return Array.prototype.slice.call(document.querySelectorAll("[data-k]")); }
+  function applyState(){
+    fields().forEach(function(el){
+      var k = el.getAttribute("data-k"), v = state[k];
+      if (el.type === "checkbox") el.checked = v === true;
+      else if (el.type === "radio") el.checked = (v != null && v === el.value);
+      else if (v != null) el.value = v;
+    });
+    autosizeAll();
+  }
+  function readField(el){
+    var k = el.getAttribute("data-k");
+    if (el.type === "checkbox") state[k] = el.checked;
+    else if (el.type === "radio") { var on = document.querySelector('input[type=radio][name="'+el.name+'"]:checked'); state[k] = on ? on.value : ""; }
+    else state[k] = el.value;
+  }
+  function autosize(t){ t.style.height = "auto"; t.style.height = (t.scrollHeight + 2) + "px"; }
+  function autosizeAll(){ document.querySelectorAll("textarea.lined").forEach(autosize); }
+
+  var saveTimer = null;
+  function onChange(e){
+    var el = e.target; if (!el.hasAttribute || !el.hasAttribute("data-k")) return;
+    readField(el);
+    if (el.tagName === "TEXTAREA") autosize(el);
+    clearTimeout(saveTimer); setSaved("Saving…"); saveTimer = setTimeout(function(){ persist(); updateProgress(); }, 350);
+  }
+  document.addEventListener("input", onChange);
+  document.addEventListener("change", onChange);
+
+  // let a second click on a selected pill clear it
+  var armed = null;
+  document.addEventListener("pointerdown", function(e){
+    var lab = e.target.closest && e.target.closest(".pill-input"); if (!lab) { armed = null; return; }
+    var inp = lab.querySelector("input"); armed = inp.checked ? inp : null;
+  });
+  document.addEventListener("click", function(e){
+    var lab = e.target.closest && e.target.closest(".pill-input"); if (!lab) return;
+    var inp = lab.querySelector("input");
+    if (armed && armed === inp && e.target === inp) { inp.checked = false; armed = null; inp.dispatchEvent(new Event("change", {bubbles:true})); }
+  });
+
+  document.getElementById("addMap").addEventListener("click", function(){
+    if (state._mapCount >= MAP_MAX) return;
+    mapWrap.insertAdjacentHTML("beforeend", mapRow(state._mapCount)); state._mapCount++; persist(); toggleAdd();
+    var t = mapWrap.querySelector('[data-row="'+(state._mapCount-1)+'"] textarea'); if (t) t.focus();
+  });
+  document.getElementById("addRemap").addEventListener("click", function(){
+    if (state._remapCount >= REMAP_MAX) return;
+    remapWrap.insertAdjacentHTML("beforeend", remapRow(state._remapCount)); state._remapCount++; persist(); toggleAdd();
+    var t = remapWrap.querySelector('[data-row="'+(state._remapCount-1)+'"] textarea'); if (t) t.focus();
+  });
+
+  /* ---------- compose plain text ---------- */
+  function g(k){ var v = state[k]; return (v == null) ? "" : String(v).trim(); }
+  function line(label, v){ return v ? label + v : ""; }
+  function joinLines(arr){ return arr.filter(function(x){ return x; }).join("\n"); }
+  function inline(v){ return v.replace(/\s*\n\s*/g, " / "); }
+
+  function compose(){
+    var out = {};
+    out.systems = g("systems");
+
+    var rows = [];
+    for (var i=0;i<state._mapCount;i++){
+      var w = g("map.rows."+i+".what"), o = g("map.rows."+i+".who"), p = g("map.rows."+i+".peeves");
+      if (w || o || p) rows.push((i+1) + ". " + (inline(w) || "(step)") + (o ? " | Who: " + inline(o) : "") + (p ? " | Peeves: " + inline(p) : ""));
+    }
+    out.map = joinLines([line("System: ", g("map.system")), line("It starts when: ", g("map.starts")), line("It ends when: ", g("map.ends")), rows.join("\n")]);
+
+    out.say = joinLines([line("The hiccup: ", inline(g("say.hiccup"))),
+      line("a) It would be easier if… ", inline(g("say.a"))), line("b) It would be easier if… ", inline(g("say.b"))), line("c) It would be easier if… ", inline(g("say.c")))]);
+
+    out.dig = joinLines([line("Questions and what I learned:\n", g("dig.questions")), line("The problem behind it: ", inline(g("dig.problem")))]);
+
+    out.flow = line("Our idea: ", g("flow.idea"));
+
+    var cs = [];
+    for (i=0;i<4;i++){
+      var name = g("connect."+i+".name");
+      var bits = CONNECT_ROWS.map(function(r){ var v = g("connect."+i+"."+r.k); return v ? r.label.replace("?","") + ": " + v : ""; }).filter(Boolean);
+      if (name || bits.length) cs.push((name || "System " + (i+1)) + (bits.length ? " | " + bits.join(" · ") : ""));
+    }
+    out.connect = cs.length ? cs.join("\n") + "\n(Level: G = guess, S = see, D = do)" : "";
+
+    var rr = [];
+    for (i=0;i<state._remapCount;i++){
+      var s = g("remap.rows."+i+".step"), y = g("remap.rows."+i+".system"), l = g("remap.rows."+i+".lane");
+      if (s || y || l) rr.push((i+1) + ". " + (inline(s) || "(step)") + (y ? " | System: " + inline(y) : "") + (l ? " | " + l : ""));
+    }
+    out.remap = rr.join("\n");
+
+    var flags = [["pick.repetitive","Repetitive"],["pick.lowrisk","Low risk"],["pick.annoyance","High annoyance"]]
+      .filter(function(f){ return state[f[0]] === true; }).map(function(f){ return f[1]; });
+    out.pick = joinLines([line("The step: ", inline(g("pick.step"))), flags.length ? "Checks: " + flags.join(", ") : "",
+      line("Our experiment: ", g("pick.experiment")), line("What could go wrong: ", g("pick.wrong")),
+      line("Owner: ", g("pick.owner")), line("Check-in: ", g("pick.checkin")), line("Success looks like: ", g("pick.success"))]);
+    return out;
+  }
+
+  var SECTIONS = [["systems","Your systems"],["map","1 · Map it"],["say","2 · Say it"],["dig","3 · Dig it"],["flow","4 · FLOW"],["connect","5 · Connect it"],["remap","6 · Map it again"],["pick","✦ Pick one"]];
+  function updateProgress(){
+    var c = compose(), n = 0;
+    SECTIONS.forEach(function(s){
+      var started = !!c[s[0]];
+      if (started) n++;
+      var chip = document.querySelector('.chip[data-sec="'+s[0]+'"]'); if (chip) chip.classList.toggle("done", started);
+    });
+    document.getElementById("count").textContent = n + " of 8 started";
+    return n;
+  }
+  function fullText(){
+    var c = compose(), parts = ["THE EASIER IF METHOD · my worksheet", ""];
+    var who = joinLines([g("contact.name"), g("contact.title"), g("contact.org"), line("Workshop: ", g("contact.event"))]);
+    if (who) parts.push(who, "");
+    SECTIONS.forEach(function(s){ parts.push(s[1].toUpperCase()); parts.push(c[s[0]] || "(blank)"); parts.push(""); });
+    parts.push("Don’t automate chaos. Clarify it. · spark hive");
+    return parts.join("\n");
+  }
+
+  /* ---------- send ---------- */
+  var errMsg = document.getElementById("errMsg");
+  function showErr(t){ errMsg.textContent = t; errMsg.classList.add("show"); }
+  function hideErr(){ errMsg.classList.remove("show"); }
+  document.getElementById("sendBtn").addEventListener("click", function(){
+    hideErr();
+    var btn = this, name = g("contact.name"), email = g("contact.email");
+    if (!name){ showErr("Add your name so I know who this is from."); document.getElementById("c-name").focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ showErr("That email doesn’t look right yet. Check it and try again."); document.getElementById("c-email").focus(); return; }
+    if (updateProgress() === 0){ showErr("Your worksheet is empty. Fill in at least one box first."); return; }
+    var c = compose();
+    var data = {
+      "form-name":"easier-if-worksheet",
+      "bot-field": document.getElementById("bot-field").value,
+      "name": name, "email": email, "title": g("contact.title"), "organization": g("contact.org"),
+      "event": g("contact.event"), "newsletter": state["contact.newsletter"] === true ? "yes" : "no",
+      "subject": "Easier If worksheet from " + name + (g("contact.event") ? " · " + g("contact.event") : ""),
+      "ei_systems": c.systems, "ei_map": c.map, "ei_say": c.say, "ei_dig": c.dig, "ei_flow": c.flow,
+      "ei_connect": c.connect, "ei_remap": c.remap, "ei_pick": c.pick,
+      "ei_json": JSON.stringify(state)
+    };
+    btn.disabled = true; btn.textContent = "Sending…";
+    fetch("/", { method:"POST", headers:{"Content-Type":"application/x-www-form-urlencoded"}, body:new URLSearchParams(data).toString() })
+      .then(function(res){
+        if (!res.ok) throw new Error("status " + res.status);
+        document.getElementById("doneText").textContent = "Your worksheet is on its way to " + email + ". Give it a few minutes, and check promotions or spam if it hides. Your answers also stay on this device until you clear them.";
+        document.getElementById("sendForm").style.display = "none";
+        var d = document.getElementById("doneState"); d.classList.add("show"); d.focus();
+      })
+      .catch(function(){ showErr("That didn’t go through. Your answers are still saved here. Try again in a minute, or print or download them now."); })
+      .then(function(){ btn.disabled = false; btn.textContent = "Send my worksheet"; });
+  });
+  document.getElementById("keepBtn").addEventListener("click", function(){
+    document.getElementById("doneState").classList.remove("show");
+    document.getElementById("sendForm").style.display = "";
+    document.getElementById("systems").scrollIntoView();
+  });
+
+  function doPrint(){ autosizeAll(); window.print(); }
+  document.getElementById("printBtn").addEventListener("click", doPrint);
+  document.getElementById("printBtn2").addEventListener("click", doPrint);
+  window.addEventListener("beforeprint", autosizeAll);
+
+  document.getElementById("dlBtn").addEventListener("click", function(){
+    var blob = new Blob([fullText()], {type:"text/plain;charset=utf-8"});
+    var a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "easier-if-worksheet.txt";
+    document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 500);
+  });
+
+  var cc = document.getElementById("clearConfirm");
+  document.getElementById("clearBtn").addEventListener("click", function(){ cc.classList.add("show"); });
+  document.getElementById("clearNo").addEventListener("click", function(){ cc.classList.remove("show"); });
+  document.getElementById("clearYes").addEventListener("click", function(){
+    try { if (store) store.removeItem(STORE); } catch(e){}
+    var keepEvent = state["contact.event"];
+    state = {}; if (keepEvent) state["contact.event"] = keepEvent;
+    mapWrap.querySelectorAll(".row:not(.head)").forEach(function(r){ r.remove(); });
+    remapWrap.querySelectorAll(".row:not(.head)").forEach(function(r){ r.remove(); });
+    connectWrap.querySelectorAll(".c-col").forEach(function(r){ r.remove(); });
+    fields().forEach(function(el){ if (el.type==="checkbox"||el.type==="radio") el.checked=false; else el.value=""; });
+    renderRows(); applyState(); persist(); updateProgress(); cc.classList.remove("show");
+    setSaved("Cleared"); window.scrollTo(0,0);
+  });
+
+  /* ---------- start ---------- */
+  state = load();
+  var ev = null; try { ev = new URLSearchParams(location.search).get("event"); } catch(e){}
+  if (ev){
+    ev = ev.slice(0,120);
+    if (!state["contact.event"]) state["contact.event"] = ev;
+    var chip = document.getElementById("eventChip"); chip.textContent = "Today: " + ev; chip.hidden = false;
+  }
+  renderRows(); applyState(); updateProgress();
+  var hasAnswers = Object.keys(state).some(function(k){ return k.charAt(0) !== "_" && k !== "contact.event" && state[k] !== "" && state[k] !== false && state[k] != null; });
+  setSaved(store ? (hasAnswers ? "Welcome back. Your answers are here." : "Saves on this device as you go") : "Not saving: private window");
+  window.addEventListener("resize", function(){ clearTimeout(window.__rz); window.__rz = setTimeout(autosizeAll, 150); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(autosizeAll);
+})();
+</script>
+</body>
+</html>
